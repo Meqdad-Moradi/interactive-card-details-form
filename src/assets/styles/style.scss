@@ -24,16 +24,23 @@ body {
    font-weight: 500;
 }
 
+img {
+   max-width: 100%;
+   display: block;
+   user-select: none;
+}
+
 .app-container {
    max-height: 100vh;
    width: 100vw;
    max-width: 1920px;
    display: grid;
    grid-template-columns: 25rem auto;
+   position: relative;
 }
 
 .left-col {
-   background-image: var(--gradient);
+   background: url("./../images/bg-main-desktop.png") no-repeat center / cover;
    min-height: 100vh;
 }
 
@@ -42,5 +49,19 @@ body {
    place-content: center;
 }
 
+.card-gen {
+   max-width: 21em;
+   box-shadow: 2.1px 2.4px 2.7px rgba(0, 0, 0, 0.019),
+      5.4px 6.2px 6.9px rgba(0, 0, 0, 0.027),
+      11px 12.6px 14.2px rgba(0, 0, 0, 0.033),
+      22.6px 25.9px 29.2px rgba(0, 0, 0, 0.041),
+      62px 71px 80px rgba(0, 0, 0, 0.06);
+   background-color: transparent;
+   border-radius: 8px;
+   overflow: hidden;
+}
+
 // layouts
 @import "form";
+@import "card-front";
+@import "card-back";

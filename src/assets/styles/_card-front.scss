@@ -1,0 +1,67 @@
+.card-front {
+   position: absolute;
+   left: 10%;
+   top: 14%;
+
+   .card-body {
+      position: relative;
+   }
+
+   .card-front-header,
+   .card-front-footer {
+      position: absolute;
+      left: 7%;
+   }
+
+   .card-front-header {
+      top: 10%;
+      display: flex;
+      align-items: center;
+      gap: 1em;
+
+      .circle {
+         display: inline-block;
+         border-radius: 100vmax;
+
+         &.first {
+            background-color: var(--white);
+            height: 40px;
+            width: 40px;
+         }
+
+         &.second {
+            height: 20px;
+            width: 20px;
+            border: 1px solid var(--white);
+         }
+      }
+   }
+
+   .card-front-footer {
+      bottom: 10%;
+      max-width: 90%;
+
+      p {
+         color: var(--white);
+      }
+   }
+
+   .card-number {
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      margin-bottom: .8em;
+   }
+
+   .card-holder-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      p {
+         font-size: .8rem;
+         letter-spacing: 2px;
+         font-weight: 400;
+         text-transform: uppercase;
+      }
+   }
+}
