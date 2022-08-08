@@ -1,0 +1,77 @@
+.main-form {
+   width: 25em;
+
+   form {
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+
+      label,
+      p {
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         font-size: 1rem;
+         font-weight: 500;
+         margin-bottom: 0.3em;
+         color: var(--very-dark-violet);
+      }
+   }
+
+   .form-control {
+      display: flex;
+      flex-direction: column;
+
+      label {
+         display: block;
+      }
+
+      input {
+         width: 100%;
+         border-radius: 8px;
+         border: 1px solid var(--light-violet);
+         padding: 0.6em 1em;
+         font-size: 1.125rem;
+         font-weight: 500;
+
+         &.error {
+            border-color: var(--red);
+         }
+
+         &:focus {
+            outline: none;
+         }
+      }
+
+      small {
+         color: var(--red);
+         font-size: 14px;
+      }
+   }
+
+   .expire-date {
+      .form-control {
+         &:nth-of-type(2) {
+            margin-left: 0.5em;
+         }
+
+         &:last-of-type {
+            margin-left: 1em;
+         }
+      }
+      .inputs {
+         display: grid;
+         grid-template-columns: 25% 25% 50%;
+      }
+   }
+
+   .confirm-btn {
+      padding: 0.6em 1.5em;
+      width: 100%;
+      font-size: 1.125rem;
+      border-radius: 8px;
+      border: 0;
+      color: var(--white);
+      background-color: var(--very-dark-violet);
+      cursor: pointer;
+   }
+}

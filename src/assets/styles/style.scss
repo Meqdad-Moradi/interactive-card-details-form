@@ -7,14 +7,9 @@
    --light-violet: hsl(270, 3%, 87%);
    --dark-violet: hsl(279, 6%, 55%);
    --very-dark-violet: hsl(278, 68%, 11%);
+   --red: hsl(0, 100%, 66%);
    --gradient-direction: left;
-   --gradient: linear-gradient(
-      130deg,
-      var(--violet),
-      var(--blue) 100%,
-      var(--violet),
-      var(--Very-dark-violet)
-   );
+   --gradient: linear-gradient(130deg, var(--blue), var(--violet));
 }
 
 :is(*, *::after, *::before) {
@@ -26,12 +21,13 @@
 
 body {
    font-size: 1.125rem;
-   font-weight: 400;
+   font-weight: 500;
 }
 
 .app-container {
    max-height: 100vh;
-   max-width: 100vw;
+   width: 100vw;
+   max-width: 1920px;
    display: grid;
    grid-template-columns: 25rem auto;
 }
@@ -45,3 +41,6 @@ body {
    display: grid;
    place-content: center;
 }
+
+// layouts
+@import "form";
