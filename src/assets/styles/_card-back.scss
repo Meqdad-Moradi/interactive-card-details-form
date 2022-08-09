@@ -2,7 +2,8 @@
    background: url("../images/bg-card-back.png") no-repeat center center / cover;
    position: absolute;
    left: 15%;
-   bottom: 14%;
+   bottom: 50%;
+   transform: translateY(110%);
 
    .card-body {
       position: relative;

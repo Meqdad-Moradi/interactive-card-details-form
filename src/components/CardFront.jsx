@@ -1,8 +1,10 @@
-import React from "react";
+import { useContext } from "react";
 import cardFront from "./../assets/images/bg-card-front.png";
-
+import { userContext } from "../contexts/AppContext";
 
 const CardFront = () => {
+   const value = useContext(userContext);
+
    return (
       <div className="card-front card-gen">
          <div className="card-body">
@@ -12,10 +14,21 @@ const CardFront = () => {
                <span className="circle second"></span>
             </div>
             <div className="card-front-footer">
-               <p className="card-number">0000 0000 0000 0000</p>
+               <p className="card-number">
+                  {value.cardNum === null
+                     ? "0000 0000 0000 0000"
+                     : value.cardNum}
+               </p>
                <div className="card-holder-details">
-                  <p>jane appleseed</p>
-                  <p>00/00</p>
+                  <p>
+                     {value.cardHolder === null
+                        ? "Jane Appleseed"
+                        : value.cardHolder}
+                  </p>
+                  <p>
+                     {value.month === null ? "00" : value.month}/
+                     {value.year === null ? "00" : value.year}
+                  </p>
                </div>
             </div>
          </div>

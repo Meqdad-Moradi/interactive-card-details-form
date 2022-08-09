@@ -1,0 +1,24 @@
+.complete {
+   .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h2{
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        font-size: 1.5rem;
+        margin-top: 1.5em;
+      }
+
+      p{
+        color: var(--dark-violet);
+        margin-top: .5em;
+      }
+
+      .btn{
+        margin-top: 2.2em;
+      }
+   }
+
+}

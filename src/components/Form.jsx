@@ -1,65 +1,92 @@
-import React, { useId, useState } from "react";
-import { useEffect } from "react";
+import React, { useContext } from "react";
+import { userContext } from "../contexts/AppContext";
 import Input from "./Input";
 
 const Form = () => {
-   // set state to inputs
-   const [cardHolder, setCardHolder] = useState(null);
-   const [cardNum, setCardNum] = useState(null);
-   const [month, setMonth] = useState(null);
-   const [year, setYear] = useState(null);
-   const [cvc, setCvc] = useState(null);
+   // // set state to inputs
+   // const [cardHolder, setCardHolder] = useState(null);
+   // const [cardNum, setCardNum] = useState(null);
+   // const [month, setMonth] = useState(null);
+   // const [year, setYear] = useState(null);
+   // const [cvc, setCvc] = useState(null);
 
-   //  set id to inputs
-   const cardHolderId = useId();
-   const cardNumId = useId();
-   const monthId = useId();
-   const yearId = useId();
-   const cvcId = useId();
+   // //  set id to inputs
+   // const cardHolderId = useId();
+   // const cardNumId = useId();
+   // const monthId = useId();
+   // const yearId = useId();
+   // const cvcId = useId();
 
-   //  set error message if there is an error
-   const [cardHolderErr, setCardHolderErr] = useState(null);
-   const [cardNumErr, setCardNumErr] = useState(null);
-   const [monthErr, setMonthErr] = useState(null);
-   const [yearErr, setYearErr] = useState(null);
-   const [cvcErr, setCvcErr] = useState(null);
+   // //  set error message if there is an error
+   // const [cardHolderErr, setCardHolderErr] = useState(null);
+   // const [cardNumErr, setCardNumErr] = useState(null);
+   // const [monthErr, setMonthErr] = useState(null);
+   // const [yearErr, setYearErr] = useState(null);
+   // const [cvcErr, setCvcErr] = useState(null);
+
+   const formData = useContext(userContext);
 
    const handleSubmit = (e) => {
       e.preventDefault();
 
-      !cardHolder
-         ? setCardHolderErr("Plase insert your name")
-         : setCardHolderErr(null);
+      if (
+         !formData.cardHolder ||
+         !formData.cardNum ||
+         !formData.month ||
+         !formData.year ||
+         !formData.cvc
+      ) {
+         !formData.cardHolder
+            ? formData.setCardHolderErr("Plase insert your name")
+            : formData.setCardHolderErr(null);
 
-      !cardNum
-         ? setCardNumErr("Wrong format, numbers only")
-         : setCardNumErr(null);
+         !formData.cardNum
+            ? formData.setCardNumErr("Wrong format, numbers only")
+            : formData.setCardNumErr(null);
 
-      !month ? setMonthErr("Can't be blank") : setMonthErr(null);
-      !year ? setYearErr("Can't be blank") : setYearErr(null);
-      !cvc ? setCvcErr("Can't be blank") : setCvcErr(null);
+         !formData.month
+            ? formData.setMonthErr("Can't be blank")
+            : formData.setMonthErr(null);
+         !formData.year
+            ? formData.setYearErr("Can't be blank")
+            : formData.setYearErr(null);
+         !formData.cvc
+            ? formData.setCvcErr("Can't be blank")
+            : formData.setCvcErr(null);
+      } else {
+         formData.setFormSubmited(true);
+
+         formData.setCardFrontData({
+            cardHolder: formData.cardHolder,
+            cardNum: formData.cardNum,
+            month: formData.month,
+            year: formData.year,
+         });
+
+         formData.setCardBackData({ cvc: formData.cvc });
+      }
    };
 
    return (
       <div className="main-form">
-         <form onSubmit={handleSubmit}>
+         <form onSubmit={(e) => handleSubmit(e)}>
             <Input
-               id={cardHolderId}
+               id={formData.cardHolderId}
                label="Cardholder name"
                type="text"
-               error={cardHolderErr}
+               error={formData.cardHolderErr}
                inputName="cardholder"
-               inputData={(e) => setCardHolder(e.target.value)}
+               inputData={(e) => formData.setCardHolder(e.target.value)}
                placeHolder="e.g. Jane Appleseed"
             />
 
             <Input
-               id={cardNumId}
+               id={formData.cardNumId}
                label="Card Number"
                type="number"
-               error={cardNumErr}
+               error={formData.cardNumErr}
                inputName="cardholderNumber"
-               inputData={(e) => setCardNum(e.target.value)}
+               inputData={(e) => formData.setCardNum(e.target.value)}
                placeHolder="e.g. 1234 5678 9123 0000"
             />
 
@@ -68,34 +95,34 @@ const Form = () => {
 
                <div className="inputs">
                   <Input
-                     id={monthId}
-                     type="number"
-                     error={monthErr}
+                     id={formData.monthId}
+                     type="text"
+                     error={formData.monthErr}
                      inputName="month"
-                     inputData={(e) => setMonth(e.target.value)}
+                     inputData={(e) => formData.setMonth(e.target.value)}
                      placeHolder="MM"
                   />
 
                   <Input
-                     id={yearId}
-                     type="number"
-                     error={yearErr}
+                     id={formData.yearId}
+                     type="text"
+                     error={formData.yearErr}
                      inputName="year"
-                     inputData={(e) => setYear(e.target.value)}
+                     inputData={(e) => formData.setYear(e.target.value)}
                      placeHolder="YY"
                   />
                   <Input
-                     id={cvcId}
-                     type="number"
-                     error={cvcErr}
+                     id={formData.cvcId}
+                     type="text"
+                     error={formData.cvcErr}
                      inputName="cvc"
-                     inputData={(e) => setCvc(e.target.value)}
+                     inputData={(e) => formData.setCvc(e.target.value)}
                      placeHolder="e.g. 123"
                   />
                </div>
             </div>
 
-            <button className="confirm-btn" type="submit">
+            <button className="confirm-btn btn" type="submit">
                Confirm
             </button>
          </form>

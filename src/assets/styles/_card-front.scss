@@ -1,7 +1,8 @@
 .card-front {
    position: absolute;
    left: 10%;
-   top: 14%;
+   top: 50%;
+   transform: translateY(-110%);
 
    .card-body {
       position: relative;

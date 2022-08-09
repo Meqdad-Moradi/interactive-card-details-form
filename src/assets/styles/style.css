@@ -21,6 +21,7 @@
 body {
   font-size: 1.125rem;
   font-weight: 500;
+  line-height: 1.5;
 }
 
 img {
@@ -57,6 +58,17 @@ img {
   background-color: transparent;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.btn {
+  padding: 0.6em 1.5em;
+  width: 100%;
+  font-size: 1.125rem;
+  border-radius: 8px;
+  border: 0;
+  color: var(--white);
+  background-color: var(--very-dark-violet);
+  cursor: pointer;
 }
 
 .main-form {
@@ -111,21 +123,12 @@ img {
   display: grid;
   grid-template-columns: 25% 25% 50%;
 }
-.main-form .confirm-btn {
-  padding: 0.6em 1.5em;
-  width: 100%;
-  font-size: 1.125rem;
-  border-radius: 8px;
-  border: 0;
-  color: var(--white);
-  background-color: var(--very-dark-violet);
-  cursor: pointer;
-}
 
 .card-front {
   position: absolute;
   left: 10%;
-  top: 14%;
+  top: 50%;
+  transform: translateY(-110%);
 }
 .card-front .card-body {
   position: relative;
@@ -183,7 +186,8 @@ img {
   background: url("../images/bg-card-back.png") no-repeat center center/cover;
   position: absolute;
   left: 15%;
-  bottom: 14%;
+  bottom: 50%;
+  transform: translateY(110%);
 }
 .card-back .card-body {
   position: relative;
@@ -197,4 +201,23 @@ img {
   line-height: 0;
   color: var(--white);
   letter-spacing: 2px;
+}
+
+.complete .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.complete .container h2 {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 1.5rem;
+  margin-top: 1.5em;
+}
+.complete .container p {
+  color: var(--dark-violet);
+  margin-top: 0.5em;
+}
+.complete .container .btn {
+  margin-top: 2.2em;
 }/*# sourceMappingURL=style.css.map */
