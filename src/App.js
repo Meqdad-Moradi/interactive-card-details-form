@@ -8,7 +8,7 @@ function App() {
    const [cardBackData, setCardBackData] = useState(null);
    const [cardFrontData, setCardFrontData] = useState(null);
 
-   console.log(cardBackData, cardFrontData);
+   
 
    const [formSubmited, setFormSubmited] = useState(false);
 
@@ -75,8 +75,8 @@ function App() {
                }}
             >
                <div className="left-col">
-                  <CardFront />
-                  <CardBack />
+                  <CardFront cardFrontData={cardFrontData} />
+                  <CardBack cardBackData={cardBackData} />
                </div>
                <div className="right-col">
                   <Main />

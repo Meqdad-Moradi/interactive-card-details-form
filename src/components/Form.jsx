@@ -1,29 +1,9 @@
 import React, { useContext } from "react";
+import { useEffect } from "react";
 import { userContext } from "../contexts/AppContext";
 import Input from "./Input";
 
 const Form = () => {
-   // // set state to inputs
-   // const [cardHolder, setCardHolder] = useState(null);
-   // const [cardNum, setCardNum] = useState(null);
-   // const [month, setMonth] = useState(null);
-   // const [year, setYear] = useState(null);
-   // const [cvc, setCvc] = useState(null);
-
-   // //  set id to inputs
-   // const cardHolderId = useId();
-   // const cardNumId = useId();
-   // const monthId = useId();
-   // const yearId = useId();
-   // const cvcId = useId();
-
-   // //  set error message if there is an error
-   // const [cardHolderErr, setCardHolderErr] = useState(null);
-   // const [cardNumErr, setCardNumErr] = useState(null);
-   // const [monthErr, setMonthErr] = useState(null);
-   // const [yearErr, setYearErr] = useState(null);
-   // const [cvcErr, setCvcErr] = useState(null);
-
    const formData = useContext(userContext);
 
    const handleSubmit = (e) => {
@@ -54,8 +34,10 @@ const Form = () => {
             ? formData.setCvcErr("Can't be blank")
             : formData.setCvcErr(null);
       } else {
+         // toggle the form if all fields are correct and submited
          formData.setFormSubmited(true);
 
+         // set data for card front
          formData.setCardFrontData({
             cardHolder: formData.cardHolder,
             cardNum: formData.cardNum,
@@ -63,9 +45,38 @@ const Form = () => {
             year: formData.year,
          });
 
-         formData.setCardBackData({ cvc: formData.cvc });
+         // set data for card back
+         formData.setCardBackData(formData.cvc);
+
+         // set all fields to null after form submited
+         formData.setCardHolder(null);
+         formData.setCardNum(null);
+         formData.setMonth(null);
+         formData.setYear(null);
+         formData.setCvc(null);
       }
    };
+
+   // clear error message if the fields are filled
+   useEffect(() => {
+      formData.setCardHolderErr(null);
+   }, [formData.cardHolder]);
+
+   useEffect(() => {
+      formData.setCardNumErr(null);
+   }, [formData.cardNum]);
+
+   useEffect(() => {
+      formData.setMonthErr(null);
+   }, [formData.month]);
+
+   useEffect(() => {
+      formData.setYearErr(null);
+   }, [formData.year]);
+
+   useEffect(() => {
+      formData.setCvcErr(null);
+   }, [formData.cvc]);
 
    return (
       <div className="main-form">
@@ -86,7 +97,14 @@ const Form = () => {
                type="number"
                error={formData.cardNumErr}
                inputName="cardholderNumber"
-               inputData={(e) => formData.setCardNum(e.target.value)}
+               inputData={(e) =>
+                  formData.setCardNum(
+                     e.target.value
+                        .replace(/[^\dA-Z]/g, "")
+                        .replace(/(.{4})/g, "$1 ")
+                        .trim()
+                  )
+               }
                placeHolder="e.g. 1234 5678 9123 0000"
             />
 
@@ -96,7 +114,7 @@ const Form = () => {
                <div className="inputs">
                   <Input
                      id={formData.monthId}
-                     type="text"
+                     type="number"
                      error={formData.monthErr}
                      inputName="month"
                      inputData={(e) => formData.setMonth(e.target.value)}
@@ -105,7 +123,7 @@ const Form = () => {
 
                   <Input
                      id={formData.yearId}
-                     type="text"
+                     type="number"
                      error={formData.yearErr}
                      inputName="year"
                      inputData={(e) => formData.setYear(e.target.value)}
@@ -113,7 +131,7 @@ const Form = () => {
                   />
                   <Input
                      id={formData.cvcId}
-                     type="text"
+                     type="number"
                      error={formData.cvcErr}
                      inputName="cvc"
                      inputData={(e) => formData.setCvc(e.target.value)}
