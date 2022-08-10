@@ -5,13 +5,7 @@ import Main from "./components/Index";
 import { userContext } from "./contexts/AppContext";
 
 function App() {
-   // const [cardBackData, setCardBackData] = useState(null);
-   // const [cardFrontData, setCardFrontData] = useState(null);
-
    const [cardData, setCardData] = useState(null);
-
-   // console.log(cardBackData, cardFrontData);
-
    const [isFormFilled, setIsFormFilled] = useState(false);
 
    return (
