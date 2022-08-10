@@ -3,12 +3,7 @@ import cardFrontImage from "./../assets/images/bg-card-front.png";
 import { userContext } from "../contexts/AppContext";
 
 const CardFront = () => {
-   const { cardFrontData } = useContext(userContext);
-
-   // const cardnumber = cardFrontData?.cardNum
-   //    .replace(/[^\dA-Z]/g, "")
-   //    .replace(/(.{4})/g, "$1 ")
-   //    .trim();
+   const value = useContext(userContext);
 
    return (
       <div className="card-front card-gen">
@@ -20,22 +15,19 @@ const CardFront = () => {
             </div>
             <div className="card-front-footer">
                <p className="card-number">
-                  {cardFrontData?.cardNum === null
+                  {!value.cardData?.cardnumber
                      ? "0000 0000 0000 0000"
-                     : cardFrontData?.cardNum}
+                     : value.cardData?.cardnumber}
                </p>
                <div className="card-holder-details">
                   <p>
-                     {cardFrontData?.cardHolder === null
+                     {!value.cardData?.username
                         ? "Jane Appleseed"
-                        : cardFrontData?.cardHolder}
+                        : value.cardData?.username}
                   </p>
                   <p>
-                     {cardFrontData?.month === null
-                        ? "00"
-                        : cardFrontData?.month}
-                     /
-                     {cardFrontData?.year === null ? "00" : cardFrontData?.year}
+                     {!value.cardData?.month ? "00" : value.cardData?.month}/
+                     {!value.cardData?.year ? "00" : value.cardData?.year}
                   </p>
                </div>
             </div>

@@ -88,12 +88,16 @@ img {
   margin-bottom: 0.3em;
   color: var(--very-dark-violet);
 }
+.main-form form .btn {
+  margin-top: 1em;
+}
 .main-form .form-control {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .main-form .form-control label {
-  display: block;
+  display: inline-block;
 }
 .main-form .form-control input {
   width: 100%;
@@ -102,6 +106,15 @@ img {
   padding: 0.6em 1em;
   font-size: 1.125rem;
   font-weight: 500;
+}
+.main-form .form-control input::-moz-placeholder {
+  color: var(--light-violet);
+}
+.main-form .form-control input:-ms-input-placeholder {
+  color: var(--light-violet);
+}
+.main-form .form-control input::placeholder {
+  color: var(--light-violet);
 }
 .main-form .form-control input.error {
   border-color: var(--red);
@@ -112,6 +125,15 @@ img {
 .main-form .form-control small {
   color: var(--red);
   font-size: 14px;
+  position: absolute;
+  left: 0;
+  top: 105%;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.main-form .expire-date .form-control {
+  position: relative;
 }
 .main-form .expire-date .form-control:nth-of-type(2) {
   margin-left: 0.5em;
@@ -122,6 +144,12 @@ img {
 .main-form .expire-date .inputs {
   display: grid;
   grid-template-columns: 25% 25% 50%;
+  align-items: end;
+}
+.main-form .expire-date .inputs label {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
 }
 
 .card-front {
@@ -129,6 +157,7 @@ img {
   left: 10%;
   top: 50%;
   transform: translateY(-110%);
+  z-index: 100;
 }
 .card-front .card-body {
   position: relative;
@@ -189,6 +218,7 @@ img {
   left: 15%;
   bottom: 50%;
   transform: translateY(110%);
+  z-index: 100;
 }
 .card-back .card-body {
   position: relative;

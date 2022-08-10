@@ -15,14 +15,19 @@
          margin-bottom: 0.3em;
          color: var(--very-dark-violet);
       }
+
+      .btn{
+         margin-top: 1em;
+      }
    }
 
    .form-control {
       display: flex;
       flex-direction: column;
+      position: relative;
 
       label {
-         display: block;
+         display: inline-block;
       }
 
       input {
@@ -32,6 +37,10 @@
          padding: 0.6em 1em;
          font-size: 1.125rem;
          font-weight: 500;
+
+         &::placeholder {
+            color: var(--light-violet);
+         }
 
          &.error {
             border-color: var(--red);
@@ -45,11 +54,17 @@
       small {
          color: var(--red);
          font-size: 14px;
+         position: absolute;
+         left: 0;
+         top: 105%;
+         width: max-content;
       }
    }
 
    .expire-date {
       .form-control {
+         position: relative;
+
          &:nth-of-type(2) {
             margin-left: 0.5em;
          }
@@ -61,6 +76,13 @@
       .inputs {
          display: grid;
          grid-template-columns: 25% 25% 50%;
+         align-items: end;
+
+         label {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+         }
       }
    }
 }

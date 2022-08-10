@@ -4,10 +4,10 @@ import { userContext } from "../contexts/AppContext";
 import { useContext } from "react";
 
 const Complete = () => {
-   const { setFormSubmited } = useContext(userContext);
+   const value = useContext(userContext);
 
    const addMore = () => {
-      setFormSubmited(false);
+      value.setIsFormFilled(false);
    };
    return (
       <div className="complete">

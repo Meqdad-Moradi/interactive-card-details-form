@@ -6,7 +6,7 @@ import Form from "./Form";
 const Main = () => {
    const value = useContext(userContext);
 
-   return <>{value.formSubmited ? <Complete /> : <Form />}</>;
+   return <>{value.isFormFilled ? <Complete /> : <Form />}</>;
 };
 
 export default Main;

@@ -1,141 +1,163 @@
 import React, { useContext } from "react";
-import { useEffect } from "react";
+import { useFormik } from "formik";
 import { userContext } from "../contexts/AppContext";
 import Input from "./Input";
 
 const Form = () => {
-   const formData = useContext(userContext);
+   const { setCardData, setIsFormFilled } = useContext(userContext);
 
-   const handleSubmit = (e) => {
-      e.preventDefault();
-
-      if (
-         !formData.cardHolder ||
-         !formData.cardNum ||
-         !formData.month ||
-         !formData.year ||
-         !formData.cvc
+   // validation function ( it must return an object like 'errors' in this example)
+   const validate = (values) => {
+      const errors = {};
+      if (!values.username) {
+         errors.username = "Can't be blank";
+      } else if (
+         /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(values.username)
       ) {
-         !formData.cardHolder
-            ? formData.setCardHolderErr("Plase insert your name")
-            : formData.setCardHolderErr(null);
-
-         !formData.cardNum
-            ? formData.setCardNumErr("Wrong format, numbers only")
-            : formData.setCardNumErr(null);
-
-         !formData.month
-            ? formData.setMonthErr("Can't be blank")
-            : formData.setMonthErr(null);
-         !formData.year
-            ? formData.setYearErr("Can't be blank")
-            : formData.setYearErr(null);
-         !formData.cvc
-            ? formData.setCvcErr("Can't be blank")
-            : formData.setCvcErr(null);
-      } else {
-         // toggle the form if all fields are correct and submited
-         formData.setFormSubmited(true);
-
-         // set data for card front
-         formData.setCardFrontData({
-            cardHolder: formData.cardHolder,
-            cardNum: formData.cardNum,
-            month: formData.month,
-            year: formData.year,
-         });
-
-         // set data for card back
-         formData.setCardBackData(formData.cvc);
-
-         // set all fields to null after form submited
-         formData.setCardHolder(null);
-         formData.setCardNum(null);
-         formData.setMonth(null);
-         formData.setYear(null);
-         formData.setCvc(null);
+         errors.username = "Wrong format, letters only";
       }
+
+      if (!values.cardnumber) {
+         errors.cardnumber = `Can't be blank`;
+      } else if (!/^[0-9\s]*$/.test(values.cardnumber)) {
+         errors.cardnumber = `Wrong format, numbers only`;
+      } else if (!/^.{19,19}$/.test(values.cardnumber)) {
+         errors.cardnumber = `Card number must be 16 digits`;
+      }
+
+      if (!values.month) {
+         errors.month = `Can't be blank`;
+      } else if (!/^[0-9]*$/.test(values.month)) {
+         errors.month = `Numbers only`;
+      } else if (!/^.{1,2}$/.test(values.month)) {
+         errors.month = `Card number must be 2 digits`;
+      }
+
+      if (!values.year) {
+         errors.year = `Can't be blank`;
+      } else if (!/^[0-9]*$/.test(values.year)) {
+         errors.year = `Numbers only`;
+      } else if (!/^.{1,2}$/.test(values.year)) {
+         errors.year = `Card number must be 2 digits`;
+      }
+
+      if (!values.cvc) {
+         errors.cvc = `Can't be blank`;
+      } else if (!/^[0-9]*$/.test(values.cvc)) {
+         errors.cvc = `Numbers only`;
+      } else if (!/^.{1,3}$/.test(values.cvc)) {
+         errors.cvc = `Card number must be 3 digits`;
+      }
+
+      return errors;
    };
 
-   // clear error message if the fields are filled
-   useEffect(() => {
-      formData.setCardHolderErr(null);
-   }, [formData.cardHolder]);
-
-   useEffect(() => {
-      formData.setCardNumErr(null);
-   }, [formData.cardNum]);
-
-   useEffect(() => {
-      formData.setMonthErr(null);
-   }, [formData.month]);
-
-   useEffect(() => {
-      formData.setYearErr(null);
-   }, [formData.year]);
-
-   useEffect(() => {
-      formData.setCvcErr(null);
-   }, [formData.cvc]);
+   const formik = useFormik({
+      initialValues: {
+         username: "",
+         cardnumber: "",
+         month: "",
+         year: "",
+         cvc: "",
+      },
+      // validationSchema: yupValidation,
+      validate,
+      onSubmit: (values) => {
+         setCardData(values);
+         setIsFormFilled(true);
+      },
+   });
 
    return (
       <div className="main-form">
-         <form onSubmit={(e) => handleSubmit(e)}>
+         <form onSubmit={formik.handleSubmit}>
             <Input
-               id={formData.cardHolderId}
-               label="Cardholder name"
+               id="username"
                type="text"
-               error={formData.cardHolderErr}
-               inputName="cardholder"
-               inputData={(e) => formData.setCardHolder(e.target.value)}
-               placeHolder="e.g. Jane Appleseed"
+               name="username"
+               onchange={formik.handleChange}
+               onblur={formik.handleBlur}
+               value={formik.values.username}
+               label="Cardholder name"
+               placeholder="e.g. Jane Appleseed"
+               err={
+                  formik.touched.username && formik.errors.username
+                     ? formik.errors.username
+                     : null
+               }
             />
 
             <Input
-               id={formData.cardNumId}
-               label="Card Number"
-               type="number"
-               error={formData.cardNumErr}
-               inputName="cardholderNumber"
-               inputData={(e) =>
-                  formData.setCardNum(
-                     e.target.value
-                        .replace(/[^\dA-Z]/g, "")
-                        .replace(/(.{4})/g, "$1 ")
-                        .trim()
-                  )
+               label="Card number"
+               name="cardnumber"
+               id="cardnumber"
+               placeholder="e.g. 1234 5678 9123 0000"
+               type="text"
+               onchange={formik.handleChange}
+               onblur={formik.handleBlur}
+               value={formik.values.cardnumber
+                  .replace(/[^\dA-Z]/g, "")
+                  .replace(/(.{4})/g, "$1 ")
+                  .trim()}
+               err={
+                  formik.touched.cardnumber && formik.errors.cardnumber
+                     ? formik.errors.cardnumber
+                     : null
                }
-               placeHolder="e.g. 1234 5678 9123 0000"
+               length={19}
             />
 
             <div className="expire-date">
-               <p>Exp. date (MM/YY) CVC</p>
+               <p>Exp. date (MM/YY)</p>
 
                <div className="inputs">
                   <Input
-                     id={formData.monthId}
-                     type="number"
-                     error={formData.monthErr}
-                     inputName="month"
-                     inputData={(e) => formData.setMonth(e.target.value)}
-                     placeHolder="MM"
+                     label=""
+                     name="month"
+                     id="month"
+                     placeholder="MM"
+                     type="text"
+                     onchange={formik.handleChange}
+                     onblur={formik.handleBlur}
+                     value={formik.values.month}
+                     err={
+                        formik.touched.month && formik.errors.month
+                           ? formik.errors.month
+                           : null
+                     }
+                     length={2}
                   />
-
                   <Input
-                     id={formData.yearId}
-                     type="number"
-                     error={formData.yearErr}
-                     inputName="year"
-                     inputData={(e) => formData.setYear(e.target.value)}
-                     placeHolder="YY"
+                     label=""
+                     name="year"
+                     id="year"
+                     placeholder="YY"
+                     type="text"
+                     onchange={formik.handleChange}
+                     onblur={formik.handleBlur}
+                     value={formik.values.year}
+                     err={
+                        formik.touched.year && formik.errors.year
+                           ? formik.errors.year
+                           : null
+                     }
+                     length={2}
                   />
                   <Input
-                     id={formData.cvcId}
-                     type="number"
-                     error={formData.cvcErr}
-                     inputName="cvc"
-                     inputData={(e) => formData.setCvc(e.target.value)}
-                     placeHolder="e.g. 123"
+                     label="cvc"
+                     name="cvc"
+                     id="cvc"
+                     placeholder="e.g. 123"
+                     type="text"
+                     onchange={formik.handleChange}
+                     onblur={formik.handleBlur}
+                     value={formik.values.cvc}
+                     err={
+                        formik.touched.cvc && formik.errors.cvc
+                           ? formik.errors.cvc
+                           : null
+                     }
+                     length={3}
                   />
                </div>
             </div>

@@ -1,26 +1,23 @@
 import React from "react";
 
-const Input = ({
-   id,
-   label,
-   type,
-   error,
-   inputName,
-   inputData,
-   placeHolder,
-}) => {
+const Input = (props) => {
+   const { label, name, id, placeholder, type, onchange, onblur, value, err , length } =
+      props;
+
    return (
       <div className="form-control">
-         <label htmlFor={id}>{label}</label>
+         <label>{label}</label>
          <input
-            className={error && "error"}
-            type={type}
-            name={inputName}
             id={id}
-            onChange={inputData}
-            placeholder={placeHolder}
+            type={type}
+            name={name}
+            onChange={onchange}
+            onBlur={onblur}
+            value={value}
+            placeholder={placeholder}
+            maxLength={length}
          />
-         <small>{error}</small>
+         <small>{err}</small>
       </div>
    );
 };
