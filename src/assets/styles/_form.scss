@@ -16,7 +16,7 @@
          color: var(--very-dark-violet);
       }
 
-      .btn{
+      .btn {
          margin-top: 1em;
       }
    }
@@ -84,5 +84,12 @@
             left: 0;
          }
       }
+   }
+}
+
+// responsive
+@media (max-width: 62.5em) {
+   .main-form {
+      width: 15em;
    }
 }

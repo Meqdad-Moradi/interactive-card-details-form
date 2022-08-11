@@ -1,5 +1,5 @@
 .card-back {
-   background: url("../images/bg-card-back.png") no-repeat center center / cover;
+   // background: url("../images/bg-card-back.png") no-repeat center center / cover;
    position: absolute;
    left: 15%;
    bottom: 50%;
@@ -20,5 +20,19 @@
          color: var(--white);
          letter-spacing: 2px;
       }
+   }
+}
+
+// responsive
+@media (max-width: 50em) {
+   .card-back {
+      bottom: auto;
+      top: 5%;
+      transform: translateY(0);
+      z-index: 1;
+   }
+
+   .card-body {
+      max-width: 80vw;
    }
 }

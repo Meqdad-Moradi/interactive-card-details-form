@@ -78,3 +78,19 @@ img {
 @import "card-front";
 @import "card-back";
 @import "complete";
+
+// responsive
+@media (max-width: 50em) {
+   .app-container {
+      grid-template-columns: 1fr;
+   }
+
+   .left-col {
+      background: url("./../images/bg-main-mobile.png") no-repeat center / cover;
+      min-height: 40vh;
+   }
+
+   .right-col {
+      padding: 7em 0 4em 0;
+   }
+}

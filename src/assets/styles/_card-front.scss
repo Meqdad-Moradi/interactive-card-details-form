@@ -51,7 +51,7 @@
    .card-number {
       font-size: 1.5rem;
       letter-spacing: 3px;
-      margin-bottom: .8em;
+      margin-bottom: 0.8em;
    }
 
    .card-holder-details {
@@ -61,10 +61,23 @@
       min-width: 100%;
 
       p {
-         font-size: .8rem;
+         font-size: 0.8rem;
          letter-spacing: 2px;
          font-weight: 400;
          text-transform: uppercase;
+      }
+   }
+}
+
+// responsive
+@media (max-width: 50em) {
+   .card-front {
+      left: 5%;
+      z-index: 2;
+
+      .card-number {
+         font-size: 1.3rem;
+         margin-bottom: 0.8em;
       }
    }
 }
